@@ -4,7 +4,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { People } from '../models/people';
 import { Response } from '../models/response';
-import { TokenStorageService } from '../services/token-storage.service';
+import { TokenStorageService } from './token-storage.service';
 
 @Injectable({
   providedIn: 'root'

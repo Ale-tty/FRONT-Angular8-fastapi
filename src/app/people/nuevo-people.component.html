@@ -1,18 +1,24 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col-md-4 mx-auto">
-            <form (ngSubmit)="onCreate()" novalidate #f="ngForm">
+            <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
-                    <label for="firstname">Firstname</label>
-                    <input type="text" class="form-control" id="firstname" name="firstname"
-                    [(ngModel)]="firstname" required>
+                    <label>First name</label>
+                    <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+                    <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                        <div *ngIf="f.firstName.errors.required">First name is required</div>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="lastname">Lastname</label>
-                    <input type="text" class="form-control" id="lastname" name="lastname"
-                    [(ngModel)]="lastname" required>
+                    <label>Last name</label>
+                    <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+                    <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                        <div *ngIf="f.lastName.errors.required">Last name is required</div>
+                    </div>
                 </div>
-                <button class="btn btn-outline-success btn-block" [disabled]="!f.valid">Add</button>
+                <!-- <button type="submit" class="btn btn-outline-success btn-block" >Add</button> -->
+                <button class="btn btn-outline-success btn-block">Add</button>
+
             </form>
         </div>
     </div>

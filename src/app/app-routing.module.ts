@@ -9,9 +9,9 @@ import {AuthenticationGuard} from './services/authentication.guard';
 
 const routes: Routes = [
   {path: '', component: ListaPeopleComponent, canActivate: [AuthenticationGuard]},
-  {path: 'detalle/:id', component: DetallePeopleComponent},
-  {path: 'nuevo', component: NuevoPeopleComponent},
-  {path: 'editar/:id', component: EditarPeopleComponent},
+  {path: 'detalle/:id', component: DetallePeopleComponent, canActivate: [AuthenticationGuard]},
+  {path: 'nuevo', component: NuevoPeopleComponent, canActivate: [AuthenticationGuard]},
+  {path: 'editar/:id', component: EditarPeopleComponent, canActivate: [AuthenticationGuard]},
   {path: 'login', component: LoginComponent},
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ];

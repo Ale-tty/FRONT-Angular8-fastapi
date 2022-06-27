@@ -3,6 +3,7 @@ import {AuthenticationService} from '../services/authentication.service';
 import {UserService} from '../services/user.service';
 import {Router} from '@angular/router';
 import { TokenStorageService } from '../services/token-storage.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -10,18 +11,38 @@ import { TokenStorageService } from '../services/token-storage.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  operation: string = 'login';
-  email: string = 'admin@admin.com'; // null
-  password: string = 'admin'; // null
   
-  constructor(private authenticationService: AuthenticationService, private userService: UserService, private tokenStorage: TokenStorageService, private router: Router) { }
+  loginForm: FormGroup;
+  submitted = false;
+  
+  constructor(private authenticationService: AuthenticationService, private userService: UserService, private tokenStorage: TokenStorageService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
+      this.loginForm = this.formBuilder.group({
+        email: ['admin@admin.com', [Validators.required, Validators.email]],
+        password: ['admin', [Validators.required, Validators.minLength(5)]]
+    });
   }
 
-  login() {
-    const user = {email: this.email, password: this.password};
-    console.log(user);
+  // convenience getter for easy access to form fields
+  get f() { return this.loginForm.controls; }
+
+  onSubmit() {
+      this.submitted = true;
+
+      // stop here if form is invalid
+      if (this.loginForm.invalid) {
+          return;
+      }
+
+      this.login(this.loginForm.value);
+
+      // display form values on success
+      // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.loginForm.value, null, 4));
+  }
+
+  login(data) {
+    const user = {email: data.email, password: data.password};
     this.userService.login(user).subscribe( 
       data => {
         console.log('login.component '+data['access_token']);

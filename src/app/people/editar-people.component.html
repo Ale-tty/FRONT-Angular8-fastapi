@@ -1,4 +1,4 @@
-<div class="container" *ngIf="people">
+<!-- <div class="container" >
     <div class="row mt-5">
         <div class="col-md-4 mx-auto">
             <form (ngSubmit)="onUpdate()" novalidate #f="ngForm">
@@ -13,6 +13,33 @@
                     [(ngModel)]="people.lastname" required>
                 </div>
                 <button class="btn btn-outline-success btn-block" [disabled]="!f.valid">Actualizar</button>
+            </form>
+        </div>
+    </div>
+</div> -->
+
+<!-- *ngIf="people" -->
+<div class="container" *ngIf="people">
+    <div class="row mt-5">
+        <div class="col-md-4 mx-auto">
+            <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label>First name</label>
+                    <input [(ngModel)]="people.firstname" type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+                    <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                        <div *ngIf="f.firstName.errors.required">First name is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Last name</label>
+                    <input [(ngModel)]="people.lastname" type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+                    <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                        <div *ngIf="f.lastName.errors.required">Last name is required</div>
+                    </div>
+                </div>
+                <!-- <button type="submit" class="btn btn-outline-success btn-block" >Add</button> -->
+                <button class="btn btn-outline-success btn-block">Update</button>
+
             </form>
         </div>
     </div>

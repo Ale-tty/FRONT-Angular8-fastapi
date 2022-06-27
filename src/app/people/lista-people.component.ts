@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { People } from '../models/people';
 import { Response } from '../models/response';
-import { PeopleService } from '../service/people.service';
+import { PeopleService } from '../services/people.service';
 import { ToastrService } from 'ngx-toastr';
 import {UserService} from '../services/user.service';
 

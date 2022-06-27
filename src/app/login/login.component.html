@@ -1,0 +1,21 @@
+﻿<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-4 mx-auto">
+      <!-- <p *ngIf="operation == 'register'">Ya tienes cuenta? Has <a (click)="operation = 'login'">Login</a></p>
+      <p *ngIf="operation == 'login'">No tienes cuenta? <a (click)="operation = 'register'">Registrarse</a></p> -->
+      <div class="form-group">
+        <label >Email</label>
+        <input [(ngModel)]="email" class="form-control marbo15" type="email" placeholder="Enter your email" />
+        <!-- <input [(ngModel)]="nick" *ngIf="operation == 'register'" class="form-control marbo15" type="text" placeholder="Ingrese Nick" /> -->
+      </div>
+      <div class="form-group">
+        <label >Password</label>
+        <input [(ngModel)]="password" class="form-control marbo15" type="password" placeholder="Enter your password" />
+      </div>
+      <div class="btn btn-outline-success btn-block">
+        <a (click)="login()" *ngIf="operation == 'login'" >Login</a>
+        <!-- <a (click)="register()" *ngIf="operation == 'register'" class="btn btn-primary">Registrarme</a> -->
+      </div>
+    </div>
+  </div>
+</div>

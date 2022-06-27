@@ -2,23 +2,15 @@
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">First name</th>
-      <th scope="col">Last name</th>
+      <th scope="col">Firstname</th>
+      <th scope="col">Lastname</th>
       <th scope="col"></th>
       <th scope="col"></th>
       <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
-    <tr 
-      *ngFor=
-        "let person of people | paginate : {
-          itemsPerPage: pageSize,
-          currentPage: page,
-          totalItems: count
-        };
-        let i = index
-      ">
+    <tr *ngFor="let person of people">
       <td>{{person.id}}</td>
       <td>{{person.firstname}}</td>
       <td>{{person.lastname}}</td>
@@ -28,11 +20,3 @@
     </tr>
   </tbody>
 </table>
-<div style="position: absolute; bottom: 0; padding-top: 1%;" class="bg-dark text-muted text-center text-lg-start col-md-12">
-  <pagination-controls
-    previousLabel="Prev"
-    nextLabel="Next"
-    responsive="true"
-    (pageChange)="handlePageChange($event)"
-  ></pagination-controls>
-</div>

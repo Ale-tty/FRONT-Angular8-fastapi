@@ -1,48 +1,58 @@
-<!-- https://stackoverflow.com/questions/19733447/bootstrap-navbar-with-left-center-or-right-aligned-items -->
-
-<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">People</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <app-navigation></app-navigation>
-</nav> -->
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">People</a>
-  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-      <ul class="navbar-nav mr-auto" *ngIf="isAuthenticated">
-        <li class="nav-item active">
-          <a
-            class="nav-link"
-            routerLink="/"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            >Home</a
-          >
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">People</a>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- <ul class="navbar-nav mr-auto" routerLinkActive="active">
+        <li class="nav-item">
+          <a href="/home" class="nav-link" routerLink="home">Home </a>
+        </li>
+        <li class="nav-item" *ngIf="showAdminBoard">
+          <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
+        </li>
+        <li class="nav-item" *ngIf="showModeratorBoard">
+          <a href="/mod" class="nav-link" routerLink="mod">Moderator Board</a>
         </li>
         <li class="nav-item">
-          <a
-            class="nav-link"
-            [routerLink]="['/nuevo']"
-            routerLinkActive="active"
-            >New person</a
-          >
+          <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">User</a>
+        </li>
+      </ul> -->
+
+      <ul class="navbar-nav ml-auto" *ngIf="!isLogged()">
+        <!-- <li class="nav-item">
+          <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
+        </li> -->
+        <li class="nav-item">
+          <a href="/login" class="nav-link" routerLink="/login"><i class="fas fa-arrow-alt-circle-right"></i> Login</a>
         </li>
       </ul>
-  </div>
-  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+
+      <ul class="navbar-nav ml-auto" *ngIf="isLogged()">
+        <!-- <li class="nav-item">
+          <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/"><i class="far fa-list-alt"></i> List of people</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  routerLink="/nuevo"><i class="fas fa-plus-circle"></i> New person</a>
+        </li>
+        <li class="nav-item">
+          <a style="cursor:pointer;" class="nav-link" (click)="logout()"><i class="fas fa-arrow-alt-circle-left"></i> Logout</a>
+        </li>
+      </ul>
+    </div>
+    <!-- <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item" *ngIf="!isAuthenticated">
-          <a class="nav-link" routerLink="/auth" routerLinkActive="active"
-            >Authenticate</a
-          >
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/"><i class="far fa-list-alt"></i> List of people</a>
         </li>
-        <li class="nav-item" *ngIf="isAuthenticated">
-          <a class="nav-link" href="#" (click)="onLogout($event)" routerLinkActive="active"
-            >Logout</a
-          >
+        <li class="nav-item">
+          <a class="nav-link"  routerLink="/nuevo"><i class="fas fa-plus-circle"></i> New person</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  routerLink="/login"><i class="fas fa-arrow-alt-circle-left"></i> Login</a>
         </li>
       </ul>
-  </div>
-</nav>
+    </div> -->
+  </nav>
 <router-outlet></router-outlet>

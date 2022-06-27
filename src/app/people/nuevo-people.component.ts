@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PeopleService } from '../services/people.service';
+import { PeopleService } from '../service/people.service';
 import { People } from '../models/people';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-nuevo-people',
@@ -12,44 +11,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class NuevoPeopleComponent implements OnInit {
 
-  createForm: FormGroup;
-  submitted = false;
+  firstname = '';
+  lastname: '';
 
   constructor(
     private peopleService: PeopleService,
     private toastr: ToastrService,
-    private router: Router,
-    private formBuilder: FormBuilder
+    private router: Router
     ) { }
 
   ngOnInit() {
-    this.createForm = this.formBuilder.group({
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required]
-    });
   }
 
-  // convenience getter for easy access to form fields
-  get f() { return this.createForm.controls; }
-
-  onSubmit() {
-      this.submitted = true;
-
-      // stop here if form is invalid
-      if (this.createForm.invalid) {
-          return;
-      }
-
-      this.onCreate(this.createForm.value);
-  }
-
-  onReset() {
-      this.submitted = false;
-      this.createForm.reset();
-  }
-
-  onCreate(data): void {
-    const people = new People(data.firstName, data.lastName);
+  onCreate(): void {
+    const people = new People(this.firstname, this.lastname);
     this.peopleService.save(people).subscribe(
       data => {
         this.toastr.success('Person added', 'OK', {

@@ -1,4 +1,5 @@
 import { Type } from '@angular/core';
+//import { People } from './people';
 
 export class Response<T> {
     data: Type<T>;

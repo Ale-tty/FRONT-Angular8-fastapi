@@ -1,37 +1,39 @@
-import { Component, OnInit  } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthenticationService } from './services/authentication.service';
-import { TokenStorageService } from './services/token-storage.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'List of people';
+export class AppComponent implements OnInit, OnDestroy {
+  title = 'People';
+  userAdded = false;
+  userAddedSubscription: Subscription;
+  isAuthenticated = false;
 
-  constructor(private authenticationService: AuthenticationService, private tokenStorage: TokenStorageService, private router: Router ) { }
+  constructor(private authService: AuthService) { }
 
-  isLogged() {
-    return this.tokenStorage.getToken() !== null;
+  ngOnInit() {
+    this.authService.autoLogin();
+    this.authService.userSub.subscribe((user) => {
+      this.isAuthenticated = user ? true : false;
+    });
   }
 
-  logout() {
-    this.authenticationService.logOut()
-    window.location.reload();
+  onLoginClick() {}
 
-    //this.isLoggedIn = this.authenticationService.isLogged()
-    //console.log(this.isLoggedIn);
-    console.log(this.tokenStorage.getToken());
-    alert('Sesioon Cerrada');
-    //this.router.navigate(['login']);
-    // this.authenticationService.logOut().then(() => {
-    //   alert('Sesioon Cerrada');
-    //   this.router.navigate(['login']);
-    // }).catch((error) => {
-    //   console.log(error);
-    // });
+  onLogoutClick() {
+    this.authService.logout();
   }
 
+  ngOnDestroy() {
+    this.userAddedSubscription.unsubscribe();
+  }
+
+  onLogout(event: Event) {
+    event.preventDefault();
+    this.authService.logout();
+  }
 }

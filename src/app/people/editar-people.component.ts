@@ -34,7 +34,7 @@ export class EditarPeopleComponent implements OnInit {
         this.toastr.error(err.error.mensaje, 'Fail', {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });
-        this.router.navigate(['/']);
+        this.router.navigate(['login']);
       }
     );
 
@@ -44,7 +44,7 @@ export class EditarPeopleComponent implements OnInit {
     });
   }
 
-    // convenience getter for easy access to form fields
+  // convenience getter for easy access to form fields
   get f() { return this.editForm.controls; }
 
   onSubmit() {
@@ -56,8 +56,6 @@ export class EditarPeopleComponent implements OnInit {
       }
 
       this.onUpdate(this.editForm.value);
-      //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.editForm.value, null, 4));
-
   }
 
   onUpdate(data): void {

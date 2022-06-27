@@ -4,7 +4,6 @@ import { catchError, retry } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { People } from '../models/people';
 import { Response } from '../models/response';
-import { TokenStorageService } from './token-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +12,12 @@ export class PeopleService {
 
   private peopleURL = 'http://localhost:8000/people/';
   
-  private httpOptions = {
-    headers: new HttpHeaders( { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.tokenStorage.getToken() })
-  };
-  
-  constructor(private httpClient : HttpClient, private tokenStorage: TokenStorageService) 
+  constructor(private httpClient : HttpClient) 
   { 
-    console.log('TESTING...'+this.tokenStorage.getToken())
   } 
 
   public lista(): Observable<any> {
-    return this.httpClient.get<Response<any[]>>(this.peopleURL, this.httpOptions)
+    return this.httpClient.get<Response<any[]>>(this.peopleURL)
     .pipe(
       retry(3),
       catchError(this.httpErrorHandler)
@@ -31,27 +25,23 @@ export class PeopleService {
   }
 
   public detail(id: string): Observable<any> {
-    return this.httpClient.get<any>(this.peopleURL + `${id}`, this.httpOptions)
+    return this.httpClient.get<any>(this.peopleURL + `${id}`)
     .pipe(
       retry(3),
       catchError(this.httpErrorHandler)
     );
   }
 
-  // public detailName(firstname: string): Observable<Response> {
-  //   return this.httpClient.get<Response>(this.peopleURL + `detailname/${firstname}`);
-  // }
-
   public save(people: People): Observable<any> {
-    return this.httpClient.post<any>(this.peopleURL, people, this.httpOptions);
+    return this.httpClient.post<any>(this.peopleURL, people);
   }
 
   public update(id: string, people: People): Observable<any> {
-    return this.httpClient.put<any>(this.peopleURL + `${id}`, people, this.httpOptions);
+    return this.httpClient.put<any>(this.peopleURL + `${id}`, people);
   }
 
   public delete(id: string): Observable<any> {
-    return this.httpClient.delete<any>(this.peopleURL + `${id}`, this.httpOptions);
+    return this.httpClient.delete<any>(this.peopleURL + `${id}`);
   }
 
   private httpErrorHandler (error: HttpErrorResponse) {

@@ -1,0 +1,48 @@
+<!-- https://stackoverflow.com/questions/19733447/bootstrap-navbar-with-left-center-or-right-aligned-items -->
+
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">People</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <app-navigation></app-navigation>
+</nav> -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">People</a>
+  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+      <ul class="navbar-nav mr-auto" *ngIf="isAuthenticated">
+        <li class="nav-item active">
+          <a
+            class="nav-link"
+            routerLink="/"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/nuevo']"
+            routerLinkActive="active"
+            >New person</a
+          >
+        </li>
+      </ul>
+  </div>
+  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item" *ngIf="!isAuthenticated">
+          <a class="nav-link" routerLink="/auth" routerLinkActive="active"
+            >Authenticate</a
+          >
+        </li>
+        <li class="nav-item" *ngIf="isAuthenticated">
+          <a class="nav-link" href="#" (click)="onLogout($event)" routerLinkActive="active"
+            >Logout</a
+          >
+        </li>
+      </ul>
+  </div>
+</nav>
+<router-outlet></router-outlet>
